@@ -76,12 +76,8 @@ chmod 644 lib/ssl/examples/certs/Makefile
 chmod 644 lib/ssl/examples/src/Makefile
 
 
-%build
-%if ! (0%{?rhel} && 0%{?rhel} <= 6)
-%global conf_flags --enable-shared-zlib --enable-systemd --without-javac --without-odbc
-%else
+
 %global conf_flags --enable-shared-zlib --without-javac --without-odbc
-%endif
 
 # autoconf
 # ./otp_build autoconf
