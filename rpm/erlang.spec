@@ -24,6 +24,7 @@ Summary:	Minimalistic Erlang/OTP distribution that provides just enough for runn
 Group:		Development/Languages
 License:	ASL 2.0
 URL:		https://www.erlang.org
+Source0:	%{name}-%{version}.tar.bz2
 Vendor:		VMware, Inc.
 
 
@@ -44,7 +45,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	m4
 BuildRequires:	autoconf
 # will install gcc and gcc-c++ as dependencies
-BuildRequires:  clang
+BuildRequires:	clang
 
 Obsoletes: erlang-docbuilder
 
