@@ -63,7 +63,7 @@ syntax_tools and xmerl.
 
 
 %prep
-cd upstream
+%setup -q -n %{name}-%{version}/upstream
 
 %patch1 -p1 -b .Do_not_format_man_pages_and_do_not_install_miscellan
 %patch2 -p1 -b .Do_not_install_C_sources
@@ -85,8 +85,6 @@ chmod 644 lib/ssl/examples/src/Makefile
 
 # autoconf
 # ./otp_build autoconf
-
-cd upstream
 
 %ifarch sparcv9 sparc64
 CFLAGS="$RPM_OPT_FLAGS -mcpu=ultrasparc -fno-strict-aliasing" %configure %{conf_flags}
@@ -114,12 +112,10 @@ touch lib/ssh/SKIP
 touch lib/tftp/SKIP
 touch lib/wx/SKIP
 
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-cd upstream
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
