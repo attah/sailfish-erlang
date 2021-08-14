@@ -16,8 +16,6 @@
 %global package_ver  24.0.5
 %global package_ver_release 1
 
-%define OSL_File_Name                   Erlang_ASL2_LICENSE.txt
-
 Name:		erlang
 Version:	%{package_ver}
 Release:	%{package_ver_release}%{?dist}
@@ -26,8 +24,6 @@ Summary:	Minimalistic Erlang/OTP distribution that provides just enough for runn
 Group:		Development/Languages
 License:	ASL 2.0
 URL:		https://www.erlang.org
-Source0:	https://github.com/erlang/otp/archive/OTP-%{upstream_ver}.tar.gz
-Source2:        %{OSL_File_Name}
 Vendor:		VMware, Inc.
 
 
@@ -66,7 +62,7 @@ syntax_tools and xmerl.
 
 
 %prep
-%setup -q -n otp-OTP-%{upstream_ver}
+cd upstream
 
 %patch1 -p1 -b .Do_not_format_man_pages_and_do_not_install_miscellan
 %patch2 -p1 -b .Do_not_install_C_sources
@@ -87,7 +83,9 @@ chmod 644 lib/ssl/examples/src/Makefile
 %endif
 
 # autoconf
-./otp_build autoconf
+# ./otp_build autoconf
+
+cd upstream
 
 %ifarch sparcv9 sparc64
 CFLAGS="$RPM_OPT_FLAGS -mcpu=ultrasparc -fno-strict-aliasing" %configure %{conf_flags}
@@ -98,8 +96,6 @@ CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %configure %{conf_flags}
 
 # remove pre-built stuff
 make clean
-
-cp %{S:2} %{_license_file}
 
 touch lib/common_test/SKIP
 touch lib/debugger/SKIP
@@ -121,6 +117,8 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+cd upstream
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
@@ -183,8 +181,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-
-%doc %{OSL_File_Name}
 
 %dir %{_libdir}/erlang/lib/asn1-*/
 %{_libdir}/erlang/lib/asn1-*/ebin
