@@ -17,8 +17,8 @@
 %global package_ver_release 1
 
 Name:		erlang
-Version:	%{package_ver}
-Release:	%{package_ver_release}%{?dist}
+Version:	24.0.5
+Release:	1
 Summary:	Minimalistic Erlang/OTP distribution that provides just enough for running RabbitMQ
 
 Group:		Development/Languages
